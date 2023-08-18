@@ -1,13 +1,13 @@
 const {Router} = require('express');
 const {
-  createDischarge
-} = require('../controllers/discharges.controller.js');
+  getTotals
+} = require('../controllers/totals.controller');
 
 const router = Router();
 
 //router.Method // get, post, put, delete
 
-router.post('/', createDischarge);
+router.post('/', getTotals);
 
 
 

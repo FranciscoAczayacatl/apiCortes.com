@@ -27,7 +27,7 @@ db.sync({ force: false })
 
 app.get('/', (req, res)=>{
   res.json({
-    message: "welcome to my server"
+    message: "todo correcto y yo que me alegro"
   })
 });
 

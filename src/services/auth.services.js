@@ -35,7 +35,7 @@ class AuthServices {
   static genToken(data){
     try {
       const token =jwt.sign(data, process.env.JWT_SECRET, {
-        expiresIn: '10m',
+        expiresIn: '1d',
         algorithm: "HS512"
       });
       return token;
@@ -43,7 +43,6 @@ class AuthServices {
       throw error;
     }
   }
-
 }
 
 module.exports = AuthServices;

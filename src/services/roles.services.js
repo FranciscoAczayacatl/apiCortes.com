@@ -10,5 +10,16 @@ class RolesService{
       throw error
     }
   }
+
+  static async created(name){
+    try {
+      const result = await Roles.create({
+        name:name
+      });
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
 }
 module.exports = RolesService

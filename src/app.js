@@ -21,10 +21,6 @@ db.sync({ force: false })
   .then(() => console.log('base de datos sincronizada'))
   .catch((error) => console.log(error));
 
-
-
-
-
 app.get('/', (req, res)=>{
   res.json({
     message: "todo correcto y yo que me alegro"

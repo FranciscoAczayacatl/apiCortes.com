@@ -1,6 +1,7 @@
 const {Sequelize} = require('sequelize');
 require('dotenv').config();
 
+
 const db = new Sequelize({
 
   database: process.env.DB_NAME,
@@ -10,7 +11,6 @@ const db = new Sequelize({
   password: process.env.DB_PASSWORD,
   dialect: 'postgres',
   logging: false,
-
   });
 
   module.exports = db;

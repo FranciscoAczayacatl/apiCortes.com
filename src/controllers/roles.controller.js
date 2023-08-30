@@ -14,7 +14,21 @@ const getRole =async (req, res) =>{
     })
   }
 }
+const createRole =async (req, res) =>{
+  try {
+    const {name}= req.body;
+    const result = await RolesService.created(name);
+    res.status(201).json({
+      result:result
+    })
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    })
+  }
+}
 
 module.exports = {
-  getRole
+  getRole,
+  createRole
 }

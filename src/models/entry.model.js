@@ -2,6 +2,7 @@ const db = require('../utils/database');
 const {DataTypes} = require('sequelize');
 const Branch = require('./branch.model');
 const Dates =require('./dates.model');
+const Users = require('./users.models')
 
 const Entry = db.define('entry',{
   id:{
@@ -10,7 +11,11 @@ const Entry = db.define('entry',{
     autoIncrement: true,
     allowNull: false,
   },
-  concept:{
+  classification:{
+    type: DataTypes.STRING,
+  },
+
+  detail:{
     type: DataTypes.STRING,
   },
   total:{
@@ -30,6 +35,14 @@ const Entry = db.define('entry',{
     allowNull: false,
     references: {
       model: Dates,
+      key: 'id',
+    }
+  },
+  user_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Users,
       key: 'id',
     }
   },

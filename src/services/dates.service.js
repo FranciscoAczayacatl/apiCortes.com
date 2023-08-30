@@ -34,6 +34,7 @@ class DatesService {
       throw error
     }
   }
+
 }
 
 module.exports = DatesService

@@ -23,6 +23,10 @@ const initModels = () =>{
   Dates.hasMany(Discharge,{as:'dischargedates', foreignKey:'date_id'});
   Totals.belongsTo(Dates, {as:'totals' , foreignKey:'date_id'});
   Dates.hasMany(Totals,{as:'totalsdates', foreignKey:'date_id'});
+  Entry.belongsTo(Users, {as:'entryusers', foreignKey:'user_id'});
+  Users.hasMany(Entry,{as:'usersentry', foreignKey:'user_id'});
+  Discharge.belongsTo(Users,{as:'dischargeuser', foreignKey:'user_id'});
+  Users.hasMany(Discharge,{as:'userdischarge', foreignKey:'user_id'});
 }
 
 module.exports = initModels;

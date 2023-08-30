@@ -97,6 +97,17 @@ class TotalService {
       throw error
     }
   }
+
+  static async getTotalById(id){
+    try {
+      const result = await Totals.findByPk(id)
+      return result
+    } catch (error) {
+      throw error
+    }
+  }
+
+  
 }
 
 

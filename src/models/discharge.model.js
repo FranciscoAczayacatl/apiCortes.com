@@ -2,6 +2,7 @@ const db = require('../utils/database');
 const {DataTypes} = require('sequelize');
 const Branch = require('./branch.model');
 const Dates = require('./dates.model');
+const Users = require('./users.models');
 
 const Discharge = db.define('discharge',{
   id:{
@@ -10,7 +11,10 @@ const Discharge = db.define('discharge',{
     autoIncrement: true,
     allowNull: false,
   },
-  concept:{
+  detail:{
+    type: DataTypes.STRING,
+  },
+  classification:{
     type: DataTypes.STRING,
   },
   total:{
@@ -30,6 +34,14 @@ const Discharge = db.define('discharge',{
     allowNull: false,
     references: {
       model: Dates,
+      key: 'id',
+    }
+  },
+  user_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Users,
       key: 'id',
     }
   },

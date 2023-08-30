@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const {
-  createEntry
+  createEntry,
+  getEntry
 } = require('../controllers/entry.controller');
 
 const router = Router();
@@ -8,6 +9,7 @@ const router = Router();
 //router.Method // get, post, put, delete
 
 router.post('/create', createEntry);
+router.post('/getEntry', getEntry)
 
 
 

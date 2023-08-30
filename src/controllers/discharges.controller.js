@@ -4,9 +4,11 @@ const TotalService = require("../services/total.service");
 
 const createDischarge = async(req, res )=>{
   try {
-    const {branch_id, concepto, entry} = req.body;
+    
+    const {branch_id, detalle, entry, user_id,clasificasion} = req.body;
     const total = Number(entry)
-    const concept = concepto;
+    const detail = detalle;
+    const classification = clasificasion
     const today = new Date();
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth();
@@ -30,7 +32,8 @@ const createDischarge = async(req, res )=>{
         } else {
           totalResult = 'Perdida'
         }
-
+        const id =date_idTotals[0];
+        const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id,user_id);
         const updateTotal= await TotalService.UpdateDischarge(totalId[0],totalentry[0], totalDischarge[0],totalUpdate,totalResult)
         res.status(200).json({
           result: 'ok',
@@ -40,7 +43,7 @@ const createDischarge = async(req, res )=>{
       } else {
         const id = resultDates.map(result => result.dataValues.id);
         console.log(id);
-        const createdEntry = await DischargeService.dischargeCreted(concept, total, branch_id, id[0]);
+        const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id[0],user_id);
         const createTotal = await TotalService.cretedTotalDischarge(total, id, branch_id );
         res.status(201).json({
           result: 'ok',
@@ -53,7 +56,7 @@ const createDischarge = async(req, res )=>{
       const dateCreate = new Date(todayWithoutTime);
       const creatingDate = await DatesService.createDate( dateCreate);
       const {id} = creatingDate
-      const createdEntry = await DischargeService.dischargeCreted(concept, total, branch_id, id);
+      const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id, user_id);
       const createTotal = await TotalService.cretedTotalDischarge(total, id, branch_id );
       res.status(201).json({
         result: 'ok',
@@ -67,6 +70,26 @@ const createDischarge = async(req, res )=>{
   }
 }
 
+const getDischargers = async(req, res)=>{
+  try {
+    const {todayYear,todayMonth,todayDay,branch} = req.body;
+    const todayWithoutTime = new Date(todayYear, todayMonth-1, todayDay);
+    const result = await DischargeService.getDischargeByDateAndBranch(todayWithoutTime, branch)
+    res.status(200).json(
+      {
+      result:result
+      })
+  } catch (error) {
+    res.status(400).json(
+      {
+        error: error.message
+
+      }
+    )
+  }
+}
+
 module.exports = {
-  createDischarge
+  createDischarge,
+  getDischargers
 }

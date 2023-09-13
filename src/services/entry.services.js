@@ -1,20 +1,26 @@
 const Entry = require('../models/entry.model')
 const { Op } = require('sequelize');
 const Users = require('../models/users.models');
+const Concept = require('../models/concept.model');
 
 class EntryService {
-  static async entryCreted(detail,classification, total, branch_id, id,user_id,){
+  static async entryCreted(classification, total, branch_id, id,user_id,deapatarment,concept_id,observaciones,costCenter){
     try {
       const result = await Entry.create({
-        detail: detail,
         classification:classification,
         total: total,
         branch_id: branch_id, 
         date_id:id,
-        user_id:user_id
+        user_id:user_id,
+        departament:deapatarment,
+        concept_id:concept_id,
+        observations:observaciones,
+        cost_center :costCenter
+
       })
       return result;
     } catch (error) {
+      console.log(error);
       throw error
     }
   }
@@ -31,12 +37,19 @@ class EntryService {
           },
           branch_id:branch_id
         },
-        attributes:['id','classification','detail','total','createdAt'],
-        include:{
-          model:Users,
-          as:'entryusers',
-          attributes:['firstname','lastname']
-        }
+        attributes:['id','classification','total','createdAt','departament','cost_center','observations'],
+        include:[
+          {
+            model:Users,
+            as:'entryusers',
+            attributes:['firstname','lastname']
+          },
+          {
+            model:Concept,
+            as:'Entryconcept',
+          }
+        ],
+        
       });
       return result
     } catch (error) {

@@ -4,7 +4,8 @@ const Branch = require('./branch.model');
 const Entry = require('./entry.model');
 const Discharge = require('./discharge.model');
 const Totals = require('./totals.model');
-const Dates = require('./dates.model')
+const Dates = require('./dates.model');
+const Concept = require('./concept.model')
 
 const initModels = () =>{
   Users.belongsTo(Branch, {as:'branches', foreignKey:'branch_id'});
@@ -27,6 +28,10 @@ const initModels = () =>{
   Users.hasMany(Entry,{as:'usersentry', foreignKey:'user_id'});
   Discharge.belongsTo(Users,{as:'dischargeuser', foreignKey:'user_id'});
   Users.hasMany(Discharge,{as:'userdischarge', foreignKey:'user_id'});
+  Discharge.belongsTo(Concept,{as:'dischargeconcept', foreignKey:'concept_id'});
+  Concept.hasMany(Discharge,{as:'conceptdischarge', foreignKey:'concept_id'});
+  Entry.belongsTo(Concept,{as:'Entryconcept', foreignKey:'concept_id'});
+  Concept.hasMany(Entry,{as:'conceptEntry', foreignKey:'concept_id'});
 }
 
 module.exports = initModels;

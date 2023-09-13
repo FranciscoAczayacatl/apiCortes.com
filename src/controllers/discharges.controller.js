@@ -5,10 +5,9 @@ const TotalService = require("../services/total.service");
 const createDischarge = async(req, res )=>{
   try {
     
-    const {branch_id, detalle, entry, user_id,clasificasion} = req.body;
+    const {branch_id, entry, user_id, classification,deapatarment,concept,observaciones,costCenter} = req.body;
     const total = Number(entry)
-    const detail = detalle;
-    const classification = clasificasion
+    const concept_id = Number(concept)
     const today = new Date();
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth();
@@ -33,7 +32,7 @@ const createDischarge = async(req, res )=>{
           totalResult = 'Perdida'
         }
         const id =date_idTotals[0];
-        const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id,user_id);
+        const createdEntry = await DischargeService.dischargeCreted(classification, total, branch_id, id,user_id,deapatarment,concept_id,observaciones,costCenter);
         const updateTotal= await TotalService.UpdateDischarge(totalId[0],totalentry[0], totalDischarge[0],totalUpdate,totalResult)
         res.status(200).json({
           result: 'ok',
@@ -43,7 +42,7 @@ const createDischarge = async(req, res )=>{
       } else {
         const id = resultDates.map(result => result.dataValues.id);
         console.log(id);
-        const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id[0],user_id);
+        const createdEntry = await DischargeService.dischargeCreted(classification, total, branch_id, id[0],user_id,deapatarment,concept_id,observaciones,costCenter);
         const createTotal = await TotalService.cretedTotalDischarge(total, id, branch_id );
         res.status(201).json({
           result: 'ok',
@@ -56,7 +55,7 @@ const createDischarge = async(req, res )=>{
       const dateCreate = new Date(todayWithoutTime);
       const creatingDate = await DatesService.createDate( dateCreate);
       const {id} = creatingDate
-      const createdEntry = await DischargeService.dischargeCreted(detail,classification, total, branch_id, id, user_id);
+      const createdEntry = await DischargeService.dischargeCreted(classification, total, branch_id, id, user_id,deapatarment,concept_id,observaciones,costCenter);
       const createTotal = await TotalService.cretedTotalDischarge(total, id, branch_id );
       res.status(201).json({
         result: 'ok',

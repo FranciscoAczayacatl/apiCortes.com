@@ -1,17 +1,21 @@
 const Discharge = require('../models/discharge.model')
 const { Op } = require('sequelize');
 const Users = require('../models/users.models');
+const Concept = require('../models/concept.model');
 
 class DischargeService {
-  static async dischargeCreted(detail, classification, total, branch_id, id,user_id){
+  static async dischargeCreted(classification, total, branch_id, id,user_id,deapatarment,concept_id,observaciones,costCenter){
     try {
       const result = await Discharge.create({
-        detail: detail,
         classification:classification,
         total: total,
         branch_id: branch_id, 
         date_id:id,
-        user_id:user_id
+        user_id:user_id,
+        departament:deapatarment,
+        concept_id:concept_id,
+        observations:observaciones,
+        cost_center :costCenter
       })
       return result;
     } catch (error) {
@@ -32,12 +36,18 @@ class DischargeService {
           },
           branch_id:branch_id
         },
-        attributes:['id','classification','detail','total','createdAt'],
-        include:{
-          model:Users,
-          as:'dischargeuser',
-          attributes:['firstname','lastname']
-        }
+        attributes:['id','classification','total','createdAt','departament','cost_center','observations'],
+        include:[
+          {
+            model:Users,
+            as:'dischargeuser',
+            attributes:['firstname','lastname']
+          },
+          {
+            model:Concept,
+            as:'dischargeconcept',
+          }
+        ],
       });
       return result
     } catch (error) {

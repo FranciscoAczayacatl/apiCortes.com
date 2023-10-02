@@ -23,7 +23,7 @@ db.sync({ force: false })
 
 app.get('/', (req, res)=>{
   res.json({
-    message: "todo correcto y yo que me alegro"
+    message: "it's correct"
   })
 });
 

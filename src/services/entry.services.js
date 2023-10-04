@@ -26,6 +26,7 @@ class EntryService {
   }
   static async getEntryByDateAndBranch(date, branch_id){
     try {
+      console.log(date, branch_id);
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0); 
       const endOfDay = new Date(date);

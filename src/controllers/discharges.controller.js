@@ -72,7 +72,7 @@ const createDischarge = async(req, res )=>{
 const getDischargers = async(req, res)=>{
   try {
     const {todayYear,todayMonth,todayDay,branch} = req.body;
-    const todayWithoutTime = new Date(todayYear, todayMonth-1, todayDay);
+    const todayWithoutTime = new Date(todayYear, todayMonth, todayDay);
     const result = await DischargeService.getDischargeByDateAndBranch(todayWithoutTime, branch)
     res.status(200).json(
       {

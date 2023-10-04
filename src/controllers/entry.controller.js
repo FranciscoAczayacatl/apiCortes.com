@@ -83,7 +83,7 @@ const createEntry = async(req, res)=>{
 const getEntry = async (req, res) =>{
   try {
     const {todayYear,todayMonth,todayDay,branch} = req.body;
-    const todayWithoutTime = new Date(todayYear, todayMonth-1, todayDay);
+    const todayWithoutTime = new Date(todayYear, todayMonth, todayDay);
     const result = await EntryService.getEntryByDateAndBranch(todayWithoutTime, branch)
     res.status(200).json(
       {

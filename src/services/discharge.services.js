@@ -2,28 +2,34 @@ const Discharge = require('../models/discharge.model')
 const { Op } = require('sequelize');
 const Users = require('../models/users.models');
 const Concept = require('../models/concept.model');
+const Clasificasion = require('../models/classification.model');
+const CostCenter = require('../models/costCenter.model');
+const Departments = require('../models/departments.model');
 
 class DischargeService {
-  static async dischargeCreted(classification, total, branch_id, id,user_id,deapatarment,concept_id,observaciones,costCenter){
+  static async DischargeCreted(empresas_sucurales_id, total, user_id, clasificasion_id ,departamentos_id, concepto_id, observations, centro_costo_id, fecha_id){
     try {
+      console.log(total);
       const result = await Discharge.create({
-        classification:classification,
-        total: total,
-        branch_id: branch_id, 
-        date_id:id,
-        user_id:user_id,
-        departament:deapatarment,
-        concept_id:concept_id,
-        observations:observaciones,
-        cost_center :costCenter
+        empresas_sucurales_id: Number(empresas_sucurales_id) ,
+        total: -total,
+        user_id: Number(user_id),
+        clasificasion_id: Number(clasificasion_id),
+        departamentos_id: Number(departamentos_id), 
+        concepto_id: Number(concepto_id),
+        observaciones:observations,
+        centro_costo_id: Number(centro_costo_id),
+        fecha_id
+
       })
       return result;
     } catch (error) {
+      console.log(error);
       throw error
     }
   }
 
-  static async getDischargeByDateAndBranch(date, branch_id){
+  static async getDischargeByDateAndBranch(date, empresas_sucurales_id){
     try {
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0); 
@@ -34,18 +40,35 @@ class DischargeService {
           createdAt: {
             [Op.between]: [startOfDay, endOfDay]
           },
-          branch_id:branch_id
+          empresas_sucurales_id:empresas_sucurales_id
         },
-        attributes:['id','classification','total','createdAt','departament','cost_center','observations'],
+        attributes:['id', 'observaciones','total','createdAt'],
         include:[
           {
             model:Users,
-            as:'dischargeuser',
-            attributes:['firstname','lastname']
+            as:'dischargeusers',
+            attributes:['nombres','apellido_materno', 'apellido_paterno']
           },
           {
             model:Concept,
             as:'dischargeconcept',
+            attributes:['nombre']
+          },
+          {
+            model: Clasificasion,
+            as:'dischargeclasificasion',
+            attributes:['nombre']
+          },
+          {
+            model: CostCenter,
+            as:'costcenterdischarge',
+            attributes:['nombre']
+          }
+          ,
+          {
+            model: Departments,
+            as:'dischargedepartamentos',
+            attributes:['nombre']
           }
         ],
       });

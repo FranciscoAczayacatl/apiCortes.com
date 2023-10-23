@@ -1,14 +1,16 @@
 const {Router} = require('express');
 const {
   createConcept,
-  getConcept
+  getConcept,
+  getConceptByID,
 } = require('../controllers/concept.controller');
 const router = Router();
 
 //router.Method // get, post, put, delete
 
 router.post('/create',createConcept);
-router.get('/', getConcept)
+router.post('/', getConcept);
+router.post('/:id',getConceptByID);
 
 
 

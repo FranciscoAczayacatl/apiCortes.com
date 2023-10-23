@@ -1,15 +1,18 @@
 const {Router} = require('express');
 const {
   getRole,
-  createRole
+  createRole,
+  getRoleID
 } = require('../controllers/roles.controller');
-const authMiddleware = require('../middlewares/auth.middleware')
 const router = Router();
 
 //router.Method // get, post, put, delete
 
-router.post('/',authMiddleware, getRole);
-router.post('/createroll',createRole)
+router.post('/createroll',createRole);
+router.get('/', getRole);
+router.post('/:id', getRoleID);
+
+
 
 
 module.exports = router;

@@ -31,21 +31,17 @@ const userLogin = async (req, res) => {
       });
     }
     const result = await AuthServices.login({email, password});
+
     if (result.isvalid) {
-      const {firstname, id, email,lastname ,role_id, branch_id} = result.user;
-      const userData = {firstname, id, email};
+      const {apellido_paterno, id, email} = result.user;
+      const userData = {apellido_paterno, id, email};
       const token = AuthServices.genToken(userData);
+      const userToken = result.user.token=token
+      const update = await AuthServices.updateTokenAndActive(token,id);
 
       res.json({
-        user:{
-          id,
-          firstname,
-          lastname,
-          email,
-          role_id,
-          branch_id
-        },
-        token:token
+        user: result.user,
+        token:update
       });
     }else{
       res.status(400).json({message: 'user not fount'})
@@ -54,7 +50,7 @@ const userLogin = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       error: "Something wrong ",
-      
+      msj: error.message
     });
   }
 }

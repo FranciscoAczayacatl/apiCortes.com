@@ -1,30 +1,21 @@
 const db = require('../utils/database');
 const {DataTypes} = require('sequelize');
-const Branch = require('./branch.model');
-const Dates =require('./dates.model');
+const Dates = require('./dates.model');
 const Users = require('./users.models');
 const Concept = require('./concept.model');
+const CostCenter = require('./costCenter.model');
+const Departments = require('./departments.model');
+const Clasificasion = require('./classification.model');
+const CompaniesAndBranches = require('./companies_branches.model');
 
-const Entry = db.define('entry',{
+const Entry = db.define('ingresos',{
   id:{
     primaryKey: true,
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
   },
-  classification:{
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   observations:{
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  cost_center:{
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  departament:{
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -32,15 +23,47 @@ const Entry = db.define('entry',{
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
-  branch_id:{
+  clasificasion_id:{
+    type: DataTypes.INTEGER,
+    references: {
+      model: Clasificasion,
+      key: 'id',
+    }
+  },
+  concepto_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model:Branch,
-      key:'id',
+      model: Concept,
+      key: 'id',
     }
   },
-  date_id:{
+  centro_costo_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: CostCenter,
+      key: 'id',
+    }
+  },
+  empresas_sucurales_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: CompaniesAndBranches,
+      key: 'id',
+    }
+  },
+  departamentos_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Departments,
+      key: 'id',
+    }
+  },
+
+  fecha_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -56,14 +79,8 @@ const Entry = db.define('entry',{
       key: 'id',
     }
   },
-  concept_id:{
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Concept,
-      key: 'id',
-    }
-  },
+
+
 });
 
 module.exports = Entry

@@ -1,9 +1,9 @@
-const BranchServices = require("../services/branch.services")
+const CompaniesServices = require("../services/company.services")
 
-const createBranch = async(req,res)=>{
+const createCompany = async(req,res)=>{
   try {
     const {name}= req.body
-    const result = await BranchServices.creted(name)
+    const result = await CompaniesServices.creted(name)
     res.status(201).json({
       result: result
     })
@@ -14,9 +14,9 @@ const createBranch = async(req,res)=>{
   }
 }
 
-const getBranches = async(req, res)=>{
+const getCompany = async(req, res)=>{
   try {
-    const result = await BranchServices.getBranche();
+    const result = await CompaniesServices.getCompanie();
     res.status(200).json({
       result:result
     })
@@ -27,10 +27,10 @@ const getBranches = async(req, res)=>{
   }
 }
 
-const getBranchesByid = async(req, res)=>{
+const getCompanyById = async(req, res)=>{
   try {
     const {id} = req.params
-    const result = await BranchServices.getBrancheById(id);
+    const result = await CompaniesServices.getCompanieById(id);
     res.status(200).json({
       result:result
     })
@@ -42,7 +42,7 @@ const getBranchesByid = async(req, res)=>{
 }
 
 module.exports = {
-  createBranch,
-  getBranches,
-  getBranchesByid 
+  createCompany,
+  getCompany,
+  getCompanyById 
 }

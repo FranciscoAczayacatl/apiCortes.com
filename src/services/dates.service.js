@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 const Dates = require('../models/dates.model')
 class DatesService {
 
-  static async dateVerify(date){
+  static async dateVerify(date,empresas_sucurales_id){
     try {
   
       const startOfDay = new Date(date);
@@ -11,9 +11,10 @@ class DatesService {
       endOfDay.setHours(23, 59, 59, 999);
       const result = await Dates.findAll({
         where: {
-          date: {
+          fecha: {
             [Op.between]: [startOfDay, endOfDay]
-          }
+          },
+          empresas_sucurales_id:Number(empresas_sucurales_id)
         },
       });
 
@@ -24,10 +25,11 @@ class DatesService {
     }
   }
 
-  static async createDate(dateCreate){
+  static async createDate(dateCreate,empresas_sucurales_id){
     try {
       const result = await Dates.create({
-        date:dateCreate
+        fecha:dateCreate,
+        empresas_sucurales_id:Number(empresas_sucurales_id)
       });
       return result
     } catch (error) {

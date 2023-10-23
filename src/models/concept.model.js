@@ -1,18 +1,26 @@
 const db = require('../utils/database');
 const {DataTypes} = require('sequelize');
+const CompaniesAndBranches = require('./companies_branches.model');
 
-const Concept = db.define("concept", {
+const Concept = db.define("concepto", {
   id:{
     primaryKey: true,
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false
   },
-  name: {
+  nombre: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: "valor faltante"
-  }
+  },
+  empresas_sucurales_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: CompaniesAndBranches,
+      key: 'id',
+    }
+  },
 })
 
 module.exports = Concept

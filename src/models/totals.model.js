@@ -1,10 +1,11 @@
 const db = require('../utils/database');
 const {DataTypes} = require('sequelize');
-const Branch = require('./branch.model')
-const Dates = require('./dates.model')
+
+const Dates = require('./dates.model');
+const CompaniesAndBranches = require('./companies_branches.model');
 
 
-const Totals = db.define('totals',{
+const Totals = db.define('totales',{
   id:{
     primaryKey: true,
     type: DataTypes.INTEGER,
@@ -29,7 +30,7 @@ const Totals = db.define('totals',{
     type: DataTypes.STRING,
     allowNull: false
   },
-  date_id:{
+  fecha_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -37,11 +38,11 @@ const Totals = db.define('totals',{
       key: 'id',
     }
   },
-    branch_id:{
+  empresas_sucurales_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Branch,
+      model: CompaniesAndBranches,
       key: 'id',
     }
   },

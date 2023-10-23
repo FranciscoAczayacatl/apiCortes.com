@@ -1,21 +1,25 @@
 const Entry = require('../models/entry.model')
-const { Op } = require('sequelize');
+const { Op, DOUBLE } = require('sequelize');
 const Users = require('../models/users.models');
 const Concept = require('../models/concept.model');
+const Clasificasion = require('../models/classification.model');
+const CostCenter = require('../models/costCenter.model');
+const Departments = require('../models/departments.model');
 
 class EntryService {
-  static async entryCreted(classification, total, branch_id, id,user_id,deapatarment,concept_id,observaciones,costCenter){
+  static async entryCreted(empresas_sucurales_id, total, user_id, clasificasion_id ,departamentos_id, concepto_id, observations, centro_costo_id, fecha_id){
     try {
+      console.log(total);
       const result = await Entry.create({
-        classification:classification,
-        total: total,
-        branch_id: branch_id, 
-        date_id:id,
-        user_id:user_id,
-        departament:deapatarment,
-        concept_id:concept_id,
-        observations:observaciones,
-        cost_center :costCenter
+        empresas_sucurales_id: Number(empresas_sucurales_id) ,
+        total:total,
+        user_id: Number(user_id),
+        clasificasion_id: Number(clasificasion_id),
+        departamentos_id: Number(departamentos_id), 
+        concepto_id: Number(concepto_id),
+        observations:observations,
+        centro_costo_id: Number(centro_costo_id),
+        fecha_id
 
       })
       return result;
@@ -24,9 +28,8 @@ class EntryService {
       throw error
     }
   }
-  static async getEntryByDateAndBranch(date, branch_id){
+  static async getEntryByDateAndBranch(date, empresas_sucurales_id){
     try {
-      console.log(date, branch_id);
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0); 
       const endOfDay = new Date(date);
@@ -36,18 +39,35 @@ class EntryService {
           createdAt: {
             [Op.between]: [startOfDay, endOfDay]
           },
-          branch_id:branch_id
+          empresas_sucurales_id:empresas_sucurales_id,
         },
-        attributes:['id','classification','total','createdAt','departament','cost_center','observations'],
+        attributes:['id', 'observations','total','createdAt'],
         include:[
           {
             model:Users,
             as:'entryusers',
-            attributes:['firstname','lastname']
+            attributes:['nombres','apellido_materno', 'apellido_paterno']
           },
           {
             model:Concept,
-            as:'Entryconcept',
+            as:'entryconcept',
+            attributes:['nombre']
+          },
+          {
+            model: Clasificasion,
+            as:'entryclasificasion',
+            attributes:['nombre']
+          },
+          {
+            model: CostCenter,
+            as:'costcenterentry',
+            attributes:['nombre']
+          }
+          ,
+          {
+            model: Departments,
+            as:'ingresodepartamentos',
+            attributes:['nombre']
           }
         ],
         

@@ -1,15 +1,15 @@
 const Totals = require('../models/totals.model');
 
 class TotalService {
-  static async cretedTotalEntry(total, id, branch_id ){
+  static async cretedTotalEntry(total, fecha_id, empresas_sucurales_id){
     try {
       const result = Totals.create({
         entry: total,
         discharge: 0,
         total: total,
         result: 'Utilidad',
-        date_id: id,
-        branch_id: branch_id
+        fecha_id: fecha_id,
+        empresas_sucurales_id: empresas_sucurales_id
       })
       return result
     } catch (error) {
@@ -17,15 +17,15 @@ class TotalService {
     }
   }
 
-  static async cretedTotalDischarge(total, id, branch_id ){
+  static async cretedTotalDischarge(total, fecha_id, empresas_sucurales_id ){
     try {
       const result = Totals.create({
         entry: 0,
         discharge: -total,
-        total: total,
+        total: -total,
         result: 'Perdida',
-        date_id: id,
-        branch_id: branch_id
+        fecha_id: fecha_id,
+        empresas_sucurales_id: empresas_sucurales_id
       })
       return result
     } catch (error) {
@@ -33,12 +33,12 @@ class TotalService {
     }
   }
 
-  static async getTotalByDate_id(date_id,branch_id){
+  static async getTotalByDate_id(date, empresas_sucurales_id){
     try {
       const result = await Totals.findAll({
         where:{
-          date_id:date_id,
-          branch_id:branch_id
+          fecha_id: date,
+          empresas_sucurales_id: empresas_sucurales_id
         }
       })
       return result
@@ -59,11 +59,16 @@ class TotalService {
       throw error
     }
   }
-  static async UpdateEntry(totalId,totalentry, totalDischarge,totalUpdate,totalResult){
+  static async UpdateEntry(id,totalentry, totalDischarge,totalUpdate,totalResult){
     try {
-      const result = await Totals.update({entry: totalentry,discharge: totalDischarge,total: totalUpdate,result: totalResult},{
+      const result = await Totals.update({
+        entry: totalentry,
+        discharge: totalDischarge,
+        total: totalUpdate,
+        result: totalResult
+      },{
         where:{
-          id:totalId
+          id
         }
       })
       return result
@@ -72,11 +77,16 @@ class TotalService {
     }
   }
 
-  static async UpdateDischarge(totalId,totalentry, totalDischarge,totalUpdate,totalResult){
+  static async UpdateDischarge(id, totalentry, totalDischarge,totalUpdate,totalResult){
     try {
-      const result = await Totals.update({entry: totalentry,discharge: totalDischarge,total: totalUpdate,result: totalResult},{
+      const result = await Totals.update({
+        entry: totalentry,
+        discharge: -totalDischarge,
+        total: totalUpdate,
+        result: totalResult
+      },{
         where:{
-          id:totalId
+          id
         }
       })
       return result
@@ -85,11 +95,11 @@ class TotalService {
     }
   }
 
-  static async getTotalByBranchId(branch_id){
+  static async getTotalByBranchId(empresas_sucurales_id){
     try {
       const result= await Totals.findAll({
         where:{
-          branch_id:branch_id
+          empresas_sucurales_id:empresas_sucurales_id
         }
       })
       return result

@@ -3,20 +3,27 @@ const { DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const Roles = require('./roles.model');
 const Branch = require('./branch.model');
+const Departments = require('./departments.model');
+const Companies = require('./companies.model');
+const CompaniesAndBranches = require('./companies_branches.model');
 require('dotenv').config();
 
-const Users = db.define('users',{
+const Users = db.define('usuarios',{
   id:{
     primaryKey: true,
     type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
   },
-  firstname:{
+  nombres:{
     type: DataTypes.STRING,
     allowNull: false,
   },
-  lastname:{
+  apellido_materno:{
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  apellido_paterno:{
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -32,7 +39,17 @@ const Users = db.define('users',{
     type: DataTypes.STRING,
     allowNull: false,
   },
-  role_id:{
+  token:{
+    type: DataTypes.STRING,
+  },
+  logueado:{
+    type: DataTypes.BOOLEAN
+  },
+  activo:{
+    type: DataTypes.BOOLEAN,
+    defaultValue:true
+  },
+  roles_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -40,11 +57,36 @@ const Users = db.define('users',{
       key: 'id',
     }
   },
-  branch_id:{
+  sucursal_id:{
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: Branch,
+      key: 'id',
+    }
+  },
+  empresa_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model:Companies ,
+      key: 'id',
+    }
+  },
+  departamento_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Departments,
+      key: 'id',
+    }
+  },
+  empresas_sucurales_id:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue:1,
+    references: {
+      model: CompaniesAndBranches,
       key: 'id',
     }
   },

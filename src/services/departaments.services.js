@@ -1,10 +1,11 @@
 const Departaments = require('../models/departments.model')
 
 class DepartamentsServices{
-  static async creted(nombre){
+  static async creted(nombre,empresas_sucurales_id){
     try {
       const result = await Departaments.create({
-        nombre:nombre
+        nombre:nombre,
+        empresas_sucurales_id:empresas_sucurales_id
       })
       return result
     } catch (error) {

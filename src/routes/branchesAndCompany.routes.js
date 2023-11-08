@@ -2,7 +2,8 @@ const {Router} = require('express');
 const {
   createBranchesAndCompanies,
   getBranchesAndCompanies,
-  getBranchesAndCompaniesById
+  getBranchesAndCompaniesById,
+  getBranchesAndCompaniesByCompany
 } = require('../controllers/branchesAndCompany.controller');
 const router = Router();
 
@@ -10,7 +11,9 @@ const router = Router();
 
 router.post('/',createBranchesAndCompanies);
 router.get('/', getBranchesAndCompanies);
+router.post('/getbycompaniebybranches', getBranchesAndCompaniesByCompany);
 router.post('/:id', getBranchesAndCompaniesById);
+
 
 
 

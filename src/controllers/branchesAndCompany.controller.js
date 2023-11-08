@@ -41,8 +41,23 @@ const getBranchesAndCompaniesById = async(req, res)=>{
   }
 }
 
+const getBranchesAndCompaniesByCompany = async(req, res) =>{
+  try {
+    const {empresa_id}= req.body;
+    console.log(empresa_id);
+    const result = await CompaniesAndBranchesServices.getByCompany(empresa_id);
+    res.status(200).json({
+      result:result
+    })
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    })
+  }
+}
 module.exports = {
   createBranchesAndCompanies,
   getBranchesAndCompanies,
-  getBranchesAndCompaniesById 
+  getBranchesAndCompaniesById,
+  getBranchesAndCompaniesByCompany
 }

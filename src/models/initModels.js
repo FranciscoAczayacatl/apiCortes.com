@@ -11,6 +11,12 @@ const Departments = require('./departments.model');
 const Clasificasion = require('./classification.model');
 const CompaniesAndBranches = require('./companies_branches.model');
 const CostCenter = require('./costCenter.model');
+const CostUtility = require('./costsUtility.model');
+const UtilityDay = require('./utilityDay.model');
+const DateUtility = require('./dateUtility.model');
+const CostSaleDay = require('./costSaleDay');
+const Costs = require('./cost.model');
+
 
 const initModels = () =>{
 
@@ -21,6 +27,14 @@ const initModels = () =>{
   //usuarios-roles
   Users.belongsTo(Roles, {as:'rol_id' , foreignKey:'roles_id'});
   Roles.hasMany(Users,{as:'usersroles', foreignKey:'roles_id'});
+
+  //usuarios-compañias
+  CompaniesAndBranches.belongsTo(Companies, {as:'companies_branches_com' , foreignKey:'empresa_id'});
+  Companies.hasMany(CompaniesAndBranches,{as:'com_companies_branches', foreignKey:'empresa_id'});
+
+  //usuarios-sucursal
+  CompaniesAndBranches.belongsTo(Branch, {as:'branch_companie_brances', foreignKey:'sucursal_id'});
+  Branch.hasMany(CompaniesAndBranches,{as:'companie_brances_branch', foreignKey:'sucursal_id'});
 
   //usuarios-compañias
   Users.belongsTo(Companies, {as:'empresas_id' , foreignKey:'empresa_id'});
@@ -114,6 +128,48 @@ const initModels = () =>{
 
   Totals.belongsTo(Dates, {as:'totals' , foreignKey:'fecha_id'});
   Dates.hasMany(Totals,{as:'totalsdates', foreignKey:'fecha_id'});
+
+  //costo_utilidad_through
+  CostUtility.belongsTo(Costs, {as:'costo_utilida_pivote' , foreignKey:'gastos_id'});
+  Costs.hasMany(CostUtility,{as:'pivote_costo_utilida', foreignKey:'gastos_id'});
+
+  //compañias_sucursales_costos_utilidad
+  CostUtility.belongsTo(CompaniesAndBranches, {as:'compañias_costos_utildad' , foreignKey:'empresas_sucurales_id'});
+  CompaniesAndBranches.hasMany(CostUtility,{as:'costos_utildad_compañias_sucursales', foreignKey:'empresas_sucurales_id'});
+
+  //costos_utilidad_usuarios
+  CostUtility.belongsTo(Users, {as:'usuarios_costos_utilidad' , foreignKey:'user_id'});
+  Users.hasMany(CostUtility,{as:'costo_utilidad_usuarios', foreignKey:'user_id'});
+
+  //compañias_sucursales_utilidad
+  UtilityDay.belongsTo(CompaniesAndBranches, {as:'compañias_utildad' , foreignKey:'empresas_sucurales_id'});
+  CompaniesAndBranches.hasMany(UtilityDay,{as:'utildad_compañias_sucursales', foreignKey:'empresas_sucurales_id'});
+
+  //fecha_utilidad
+  UtilityDay.belongsTo(DateUtility, {as:'fechas_utildad' , foreignKey:'fechas_utilidad_id'});
+  DateUtility.hasMany(UtilityDay,{as:'utildad_fechas', foreignKey:'fechas_utilidad_id'});
+
+  //costo_venta_dia_fecha
+  CostSaleDay.belongsTo(DateUtility, {as:'fechas_costo_dia' , foreignKey:'fechas_utilidad_id'});
+  DateUtility.hasMany(CostSaleDay,{as:'costo_dia_fechas', foreignKey:'fechas_utilidad_id'});
+    
+  //costo_utildad_venta_dia
+  CostSaleDay.belongsTo(CostUtility, {as:'costo_utilidad_dia' , foreignKey:'venta_costos_id'});
+  CostUtility.hasMany(CostSaleDay,{as:'dia_costo_utilidad', foreignKey:'venta_costos_id'});
+
+  //utildad_venta_dia
+  CostSaleDay.belongsTo(UtilityDay, {as:'costo_v_d_utildad' , foreignKey:'utilidad_id'});
+  UtilityDay.hasMany(CostSaleDay,{as:'d_utildad_costo_v', foreignKey:'utilidad_id'});
+
+
+
+
+
+
+
+
+
+
 }
 
 module.exports = initModels;

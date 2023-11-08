@@ -2,8 +2,8 @@ const DepartamentsServices = require("../services/departaments.services")
 
 const createDepartament = async(req,res)=>{
   try {
-    const {nombre}= req.body
-    const result = await DepartamentsServices.creted(nombre)
+    const {nombre,empresas_sucurales_id}= req.body
+    const result = await DepartamentsServices.creted(nombre,empresas_sucurales_id)
     res.status(201).json({
       result: result
     })

@@ -11,6 +11,8 @@ const departamentsRoutes = require('./deaprtaments.routes');
 const branchesAndCompanyRoutes = require('./branchesAndCompany.routes');
 const classificationRoute = require('./clasificasion.routes');
 const costCenterRoute = require('./costCenter.routes');
+const utilityRoute = require('./utility.routes');
+const costSalesRoute = require('./costSales.routes');
 
 const routeApi = (app) => {
   app.use('/api/v1/auth', authRoutes);
@@ -26,6 +28,8 @@ const routeApi = (app) => {
   app.use('/api/v1/bac', branchesAndCompanyRoutes);
   app.use('/api/v1/clasificasion', classificationRoute);
   app.use('/api/v1/costcenter', costCenterRoute);
+  app.use('/api/v1/utility', utilityRoute);
+  app.use('/api/v1/costsales', costSalesRoute);
 
 
 }

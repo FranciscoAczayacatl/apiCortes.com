@@ -2,12 +2,13 @@ const UsersServices = require("../services/users.services")
 
 const getUsers = async(req, res) =>{
   try {
-    const result =await UsersServices.getAllUSers();
-
+    const {empresa_id} = req.body;
+    const result =await UsersServices.getAllUSers(empresa_id);
+    
     res.status(200).json({
       message: 'ok',
       result: result
-    })
+    });
   } catch (error) {
     res.status(400).json({
       error: error.message

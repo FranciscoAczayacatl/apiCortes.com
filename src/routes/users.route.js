@@ -8,7 +8,7 @@ const router = Router();
 
 //router.Method // get, post, put, delete
 
-router.get('/', getUsers);
+router.post('/', getUsers);
 router.delete('/:id',deleteUser);
 
 

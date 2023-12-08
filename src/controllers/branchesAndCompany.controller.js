@@ -3,6 +3,7 @@ const CompaniesAndBranchesServices = require("../services/branchesAndCompany.ser
 const createBranchesAndCompanies = async(req,res)=>{
   try {
     const data= req.body
+    console.log(data);
     const result = await CompaniesAndBranchesServices.creted(data)
     res.status(201).json({
       result: result

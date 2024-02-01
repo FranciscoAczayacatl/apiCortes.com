@@ -5,8 +5,8 @@ const {DataTypes} = require('sequelize');
 const Costs = db.define("gastos", {
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false
   },
   ordinarios:{

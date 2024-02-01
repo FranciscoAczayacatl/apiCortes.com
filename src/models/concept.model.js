@@ -5,8 +5,8 @@ const CompaniesAndBranches = require('./companies_branches.model');
 const Concept = db.define("concepto", {
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue:DataTypes.UUIDV4,
     allowNull: false
   },
   nombre: {
@@ -14,7 +14,7 @@ const Concept = db.define("concepto", {
     allowNull: false,
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,

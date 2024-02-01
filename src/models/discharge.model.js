@@ -11,8 +11,8 @@ const CompaniesAndBranches = require('./companies_branches.model');
 const Discharge = db.define('egreso',{
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   observaciones:{
@@ -24,14 +24,14 @@ const Discharge = db.define('egreso',{
     allowNull: false,
   },
   clasificasion_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: Clasificasion,
       key: 'id',
     }
   },
   concepto_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Concept,
@@ -39,7 +39,7 @@ const Discharge = db.define('egreso',{
     }
   },
   centro_costo_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CostCenter,
@@ -47,7 +47,7 @@ const Discharge = db.define('egreso',{
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,
@@ -55,7 +55,7 @@ const Discharge = db.define('egreso',{
     }
   },
   departamentos_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Departments,
@@ -64,7 +64,7 @@ const Discharge = db.define('egreso',{
   },
 
   fecha_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Dates,
@@ -72,7 +72,7 @@ const Discharge = db.define('egreso',{
     }
   },
   user_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Users,

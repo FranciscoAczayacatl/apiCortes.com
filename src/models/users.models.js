@@ -11,8 +11,8 @@ require('dotenv').config();
 const Users = db.define('usuarios',{
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   nombres:{
@@ -50,7 +50,7 @@ const Users = db.define('usuarios',{
     defaultValue:true
   },
   roles_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Roles,
@@ -58,7 +58,7 @@ const Users = db.define('usuarios',{
     }
   },
   sucursal_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Branch,
@@ -66,7 +66,7 @@ const Users = db.define('usuarios',{
     }
   },
   empresa_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model:Companies ,
@@ -74,7 +74,7 @@ const Users = db.define('usuarios',{
     }
   },
   departamento_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Departments,
@@ -82,9 +82,8 @@ const Users = db.define('usuarios',{
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
-    defaultValue:1,
     references: {
       model: CompaniesAndBranches,
       key: 'id',

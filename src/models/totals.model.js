@@ -7,9 +7,9 @@ const CompaniesAndBranches = require('./companies_branches.model');
 
 const Totals = db.define('totales',{
   id:{
-    primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    primaryKey:true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   entry:{
@@ -31,7 +31,7 @@ const Totals = db.define('totales',{
     allowNull: false
   },
   fecha_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Dates,
@@ -39,7 +39,7 @@ const Totals = db.define('totales',{
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,

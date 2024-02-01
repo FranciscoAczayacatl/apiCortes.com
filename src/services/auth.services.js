@@ -89,6 +89,23 @@ class AuthServices {
     }
   }
 
+  static async logoutUser(id){
+    try {
+      const result = await User.update(
+        {
+          token:'',
+          logueado:false
+        },
+        {
+          where:{id}
+        }
+      )
+      return result;
+    } catch (error) {
+      throw error
+    }
+  }
+
 }
 
 module.exports = AuthServices;

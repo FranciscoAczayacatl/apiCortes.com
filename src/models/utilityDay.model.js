@@ -8,8 +8,8 @@ const DateUtility = require('./dateUtility.model');
 const UtilityDay = db.define("utilidad_dia", {
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false
   },
   ventas:{
@@ -25,7 +25,7 @@ const UtilityDay = db.define("utilidad_dia", {
     allowNull: false,
   },
   fechas_utilidad_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: DateUtility,
@@ -33,7 +33,7 @@ const UtilityDay = db.define("utilidad_dia", {
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,

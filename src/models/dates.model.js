@@ -5,8 +5,8 @@ const CompaniesAndBranches = require('./companies_branches.model');
 const Dates = db.define("fechas",{
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   fecha:{
@@ -14,7 +14,7 @@ const Dates = db.define("fechas",{
     allowNull: false
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,

@@ -4,8 +4,8 @@ const {DataTypes} = require('sequelize');
 const Branch = db.define("sucursales",{
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   nombre:{
@@ -14,4 +14,4 @@ const Branch = db.define("sucursales",{
   },
 })
 
-module.exports = Branch
+module.exports = Branch;

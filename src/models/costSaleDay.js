@@ -7,9 +7,15 @@ const CostUtility = require('./costsUtility.model');
 
 
 const CostSaleDay = db.define("costo_ventas", {
+  id:{
+    primaryKey: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false
+  },
 
   venta_costos_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CostUtility,
@@ -17,7 +23,7 @@ const CostSaleDay = db.define("costo_ventas", {
     }
   },
   utilidad_dia_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: UtilityDay,
@@ -25,7 +31,7 @@ const CostSaleDay = db.define("costo_ventas", {
     }
   },
   fechas_utilidad_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: DateUtility,

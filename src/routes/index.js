@@ -13,6 +13,14 @@ const classificationRoute = require('./clasificasion.routes');
 const costCenterRoute = require('./costCenter.routes');
 const utilityRoute = require('./utility.routes');
 const costSalesRoute = require('./costSales.routes');
+const funtionsRoute = require('./funtions.routes'); 
+const categoriesRoute = require('./categories.routes');
+const suppliersRoute = require('./suppliers.routes');
+const productsRoute = require('./products.routes');
+const inventaryRoute = require('./inventary.routes');
+const customersRoute = require('./customers.routes');
+const salesRoute = require('./sales.routes');
+const methodPaymentRoute = require('./methodPayment.routes');
 
 const routeApi = (app) => {
   app.use('/api/v1/auth', authRoutes);
@@ -30,7 +38,15 @@ const routeApi = (app) => {
   app.use('/api/v1/costcenter', costCenterRoute);
   app.use('/api/v1/utility', utilityRoute);
   app.use('/api/v1/costsales', costSalesRoute);
-
+  app.use('/api/v1/funtions', funtionsRoute);
+  app.use('/api/v1/categories', categoriesRoute);
+  app.use('/api/v1/categories', categoriesRoute);
+  app.use('/api/v1/supplier', suppliersRoute);
+  app.use('/api/v1/product', productsRoute);
+  app.use('/api/v1/inventory', inventaryRoute);
+  app.use('/api/v1/customers', customersRoute);
+  app.use('/api/v1/sales', salesRoute);
+  app.use('/api/v1/methodpayment', methodPaymentRoute);
 
 }
 

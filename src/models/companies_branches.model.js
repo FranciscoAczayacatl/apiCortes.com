@@ -6,12 +6,12 @@ const Companies = require('./companies.model');
 const CompaniesAndBranches= db.define("empresas_sucursales",{
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   sucursal_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Branch,
@@ -19,7 +19,7 @@ const CompaniesAndBranches= db.define("empresas_sucursales",{
     }
   },
   empresa_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Companies,

@@ -11,14 +11,14 @@ class DischargeService {
     try {
       console.log(total);
       const result = await Discharge.create({
-        empresas_sucurales_id: Number(empresas_sucurales_id) ,
+        empresas_sucurales_id: empresas_sucurales_id ,
         total: -total,
-        user_id: Number(user_id),
-        clasificasion_id: Number(clasificasion_id),
-        departamentos_id: Number(departamentos_id), 
-        concepto_id: Number(concepto_id),
+        user_id: user_id,
+        clasificasion_id: clasificasion_id,
+        departamentos_id: departamentos_id, 
+        concepto_id: concepto_id,
         observaciones:observations,
-        centro_costo_id: Number(centro_costo_id),
+        centro_costo_id: centro_costo_id,
         fecha_id
 
       })

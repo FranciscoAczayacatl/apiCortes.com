@@ -10,9 +10,9 @@ const CompaniesAndBranches = require('./companies_branches.model');
 
 const Entry = db.define('ingresos',{
   id:{
-    primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    primaryKey:true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
   },
   observations:{
@@ -24,14 +24,14 @@ const Entry = db.define('ingresos',{
     allowNull: false,
   },
   clasificasion_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: Clasificasion,
       key: 'id',
     }
   },
   concepto_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Concept,
@@ -39,7 +39,7 @@ const Entry = db.define('ingresos',{
     }
   },
   centro_costo_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CostCenter,
@@ -47,7 +47,7 @@ const Entry = db.define('ingresos',{
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,
@@ -55,7 +55,7 @@ const Entry = db.define('ingresos',{
     }
   },
   departamentos_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Departments,
@@ -64,7 +64,7 @@ const Entry = db.define('ingresos',{
   },
 
   fecha_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Dates,
@@ -72,7 +72,7 @@ const Entry = db.define('ingresos',{
     }
   },
   user_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Users,

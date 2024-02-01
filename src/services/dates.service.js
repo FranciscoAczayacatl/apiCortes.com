@@ -14,7 +14,7 @@ class DatesService {
           fecha: {
             [Op.between]: [startOfDay, endOfDay]
           },
-          empresas_sucurales_id:Number(empresas_sucurales_id)
+          empresas_sucurales_id:empresas_sucurales_id
         },
       });
 
@@ -29,7 +29,7 @@ class DatesService {
     try {
       const result = await Dates.create({
         fecha:dateCreate,
-        empresas_sucurales_id:Number(empresas_sucurales_id)
+        empresas_sucurales_id:empresas_sucurales_id
       });
       return result
     } catch (error) {

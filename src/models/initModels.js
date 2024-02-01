@@ -16,6 +16,18 @@ const UtilityDay = require('./utilityDay.model');
 const DateUtility = require('./dateUtility.model');
 const CostSaleDay = require('./costSaleDay');
 const Costs = require('./cost.model');
+const Functions = require('./funtions');
+const FunctionsUser = require('./funtionsUser');                        
+const Categories = require('./categories.model');
+const Products = require('./products.model');
+const Suppliers = require('./suppliers.model');
+const Inventory = require('./inventory.model');
+const Customers = require('./customers');
+const Sales = require('./sales.model');
+const SalesMethodPayments = require('./salesMethodPayments');
+const MethodPayment = require('./methodPayment');
+const SalesProducts = require('./salesProducts.model');
+const OutstandingDebts = require('./outstandingDebts');
 
 
 const initModels = () =>{
@@ -161,13 +173,62 @@ const initModels = () =>{
   CostSaleDay.belongsTo(UtilityDay, {as:'costo_v_d_utildad' , foreignKey:'utilidad_id'});
   UtilityDay.hasMany(CostSaleDay,{as:'d_utildad_costo_v', foreignKey:'utilidad_id'});
 
+  FunctionsUser.belongsTo(Users, {as:'funciones_usuarios' , foreignKey:'user_id'});
+  Users.hasMany(FunctionsUser,{as:'usuario_a_funciones', foreignKey:'user_id'});
+
+  FunctionsUser.belongsTo(Functions, {as:'fuciones_a_funciones_usuarios' , foreignKey:'funciones_id'});
+  Functions.hasMany(FunctionsUser,{as:'funciones_usuario_a_funciones', foreignKey:'funciones_id'});
+
+  Categories.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_c'});
+  CompaniesAndBranches.hasMany(Categories, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_c'});
+
+  Suppliers.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_s' });
+  CompaniesAndBranches.hasMany(Suppliers, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_s' });
 
 
+  Products.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_p' });
+  CompaniesAndBranches.hasMany(Products, { foreignKey: 'empresas_sucursales_id',as: 'sucursal_p' });
+  Products.belongsTo(Categories, { foreignKey: 'categorias_id', as: 'categoria'  });
+  Categories.hasMany(Products, { foreignKey: 'categorias_id', as: 'categoria'  });
 
+  Products.belongsTo(Suppliers, { foreignKey: 'provedores_id',as: 'proveedor' });
+  Suppliers.hasMany(Products, { foreignKey: 'provedores_id',as: 'proveedor' });
 
+  Inventory.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_i'});
+  CompaniesAndBranches.hasMany(Inventory, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_i'});
+  Inventory.belongsTo(Products, { foreignKey: 'productos_id',as: 'producto' });
+  Products.hasMany(Inventory, { foreignKey: 'productos_id',as: 'producto' });
 
+  Customers.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_l'});
+  CompaniesAndBranches.hasMany(Customers, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_l'});
 
+  Sales.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal'});
+  CompaniesAndBranches.hasMany(Sales, { foreignKey: 'empresas_sucursales_id', as: 'sucursal'});
+  Sales.belongsTo(Customers, { foreignKey: 'clientes_id', as: 'vC'});
+  Customers.hasMany(Sales, { foreignKey: 'clientes_id', as: 'vC'});
+  Sales.belongsTo(Users, { foreignKey: 'user_id', as: 'uV'});
+  Users.hasMany(Sales, { foreignKey: 'user_id', as: 'uV'});
 
+  SalesMethodPayments.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_sm'});
+  CompaniesAndBranches.hasMany(SalesMethodPayments, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_sm'});
+  SalesMethodPayments.belongsTo(Sales, { foreignKey: 'venta_id', as: 'venta_sm'});
+  Sales.hasMany(SalesMethodPayments, { foreignKey: 'venta_id', as: 'venta_sm'});
+  SalesMethodPayments.belongsTo(MethodPayment, { foreignKey: ' metodo_pago_id', as: 'venta_mp'});
+  MethodPayment.hasMany(SalesMethodPayments, { foreignKey: ' metodo_pago_id', as: 'venta_mp'});
+
+  SalesProducts.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_sp'});
+  CompaniesAndBranches.hasMany(SalesProducts, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_sp'});
+  SalesProducts.belongsTo(CompaniesAndBranches, { foreignKey: 'venta_id', as: 'venta_sp'});
+  CompaniesAndBranches.hasMany(SalesProducts, { foreignKey: 'venta_id', as: 'venta_sp'});
+  SalesProducts.belongsTo(Products, { foreignKey: 'productos_id', as: 'producto_sp'});
+  Products.hasMany(SalesProducts, { foreignKey: 'productos_id', as: 'producto_sp'});
+
+  OutstandingDebts.belongsTo(CompaniesAndBranches, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_od'});
+  CompaniesAndBranches.hasMany(OutstandingDebts, { foreignKey: 'empresas_sucursales_id', as: 'sucursal_od'});
+  OutstandingDebts.belongsTo(Sales, { foreignKey: 'venta_id', as: 'venta_od'});
+  Sales.hasMany(OutstandingDebts, { foreignKey: 'venta_id', as: 'venta_od'});
+  OutstandingDebts.belongsTo(Customers, { foreignKey: 'clientes_id', as: 'clientes_od'});
+  Customers.hasMany(OutstandingDebts, { foreignKey: 'clientes_id', as: 'clientes_od'});
 
 
 }

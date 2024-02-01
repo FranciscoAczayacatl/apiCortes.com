@@ -7,8 +7,8 @@ const Costs = require('./cost.model');
 const CostUtility = db.define("ventas_costos", {
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false
   },
   ventas:{
@@ -24,7 +24,7 @@ const CostUtility = db.define("ventas_costos", {
     allowNull: false,
   },
   gastos_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Costs,
@@ -32,7 +32,7 @@ const CostUtility = db.define("ventas_costos", {
     }
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,
@@ -40,7 +40,7 @@ const CostUtility = db.define("ventas_costos", {
     }
   },
   user_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: Users,

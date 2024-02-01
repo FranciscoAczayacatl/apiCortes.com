@@ -15,7 +15,7 @@ class DatesUtilityServices {
           Date: {
             [Op.between]: [startOfDay, endOfDay]
           },
-          empresas_sucurales_id:Number(empresas_sucurales_id)
+          empresas_sucurales_id:empresas_sucurales_id
         },
       });
 

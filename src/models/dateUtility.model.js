@@ -7,8 +7,8 @@ const CompaniesAndBranches = require('./companies_branches.model');
 const DateUtility = db.define("fechas_utildad", {
   id:{
     primaryKey: true,
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false
   },
   Date:{
@@ -16,7 +16,7 @@ const DateUtility = db.define("fechas_utildad", {
     allowNull: false,
   },
   empresas_sucurales_id:{
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false,
     references: {
       model: CompaniesAndBranches,
